@@ -1,0 +1,11 @@
+# number of ticks before a flying grapple hook despawns
+hook-timeout: 10
+
+# the rate at which the grappling tether is retracted
+retraction-speed: 0.4
+
+# the maximum length a grapple tether can be
+max-tether-length: 32
+
+# the minimum length a grapple tether can be
+min-tether-length: 4

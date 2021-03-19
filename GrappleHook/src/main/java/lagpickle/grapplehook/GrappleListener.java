@@ -11,8 +11,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class GrappleListener implements Listener {
 
-    private static final int HOOK_TIMEOUT = 10;
-
     private GrappleHook plugin;
     private HashMap<Projectile,Player> hooks;
 
@@ -27,7 +25,8 @@ public class GrappleListener implements Listener {
         this.hooks.put(hook,player);
         // remove hook after delay
         this.plugin.getServer().getScheduler().runTaskLater(
-            this.plugin, () -> this.removeHook(hook), HOOK_TIMEOUT);
+            this.plugin,
+            () -> this.removeHook(hook),this.plugin.getHookTimeout());
     }
 
     private void removeHook(Projectile hook) {

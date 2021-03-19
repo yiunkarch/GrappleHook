@@ -24,7 +24,7 @@ public class GrappleManager {
         if (this.grapples.containsKey(player)) {
             this.grapples.get(player).cancel();
         }
-        LocationGrapple grapple = new LocationGrapple(this,player,location);
+        LocationGrapple grapple = new LocationGrapple(this.plugin,player,location);
         this.grapples.put(player,grapple.runTaskTimer(this.plugin,0,1));
     }
 

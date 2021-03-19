@@ -7,18 +7,14 @@ import org.bukkit.util.Vector;
 
 public class LocationGrapple extends BukkitRunnable {
 
-    private static final double MAX_DISTANCE2 = 1024;
-    private static final double MIN_LENGTH = 4;
-    private static final double RETRACTION_SPEED = 0.4;
-
-    private GrappleManager manager;
+    private GrappleHook plugin;
     private Player player;
     private Location hookLoc;
     private double length;
     private double length2;
 
-    public LocationGrapple(GrappleManager manager,Player player,Location hookLoc) {
-        this.manager = manager;
+    public LocationGrapple(GrappleHook plugin,Player player,Location hookLoc) {
+        this.plugin = plugin;
         this.player = player;
         this.hookLoc = hookLoc;
         this.length = player.getLocation().distance(hookLoc);
@@ -27,8 +23,8 @@ public class LocationGrapple extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (this.length > MIN_LENGTH) {
-            this.length -= RETRACTION_SPEED;
+        if (this.length > this.plugin.getMinTetherLength()) {
+            this.length -= this.plugin.getRetractionSpeed();
             this.length2 = this.length * this.length;
         }
         // find distance to new player position
@@ -42,8 +38,8 @@ public class LocationGrapple extends BukkitRunnable {
             distance2 = Double.MAX_VALUE;
         }
         // cancel grapple if player is too far
-        if (distance2 > MAX_DISTANCE2) {
-            this.manager.unGrapple(this.player);
+        if (distance2 > this.plugin.getMaxTetherLength2()) {
+            this.plugin.getGrappleManager().unGrapple(this.player);
             return;
         }
         // if player is "pulling" on the grapple line
