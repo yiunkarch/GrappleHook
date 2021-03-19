@@ -8,6 +8,8 @@ import org.bukkit.util.Vector;
 public class LocationGrapple extends BukkitRunnable {
 
     private static final double MAX_DISTANCE2 = 1024;
+    private static final double MIN_LENGTH = 4;
+    private static final double RETRACTION_SPEED = 0.4;
 
     private GrappleManager manager;
     private Player player;
@@ -25,6 +27,10 @@ public class LocationGrapple extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (this.length > MIN_LENGTH) {
+            this.length -= RETRACTION_SPEED;
+            this.length2 = this.length * this.length;
+        }
         // find distance to new player position
         double distance2;
         Location playerLoc = this.player.getLocation();
