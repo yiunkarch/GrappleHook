@@ -20,11 +20,17 @@ public class GrappleManager {
     }
 
     public void grappleLocation(Player player, Location location) {
-        this.grapples.put(player,null);
+        // cancel running grapple task if one exists
+        if (this.grapples.containsKey(player)) {
+            this.grapples.get(player).cancel();
+        }
+        LocationGrapple grapple = new LocationGrapple(this,player,location);
+        this.grapples.put(player,grapple.runTaskTimer(this.plugin,0,1));
     }
 
     public void unGrapple(Player player) {
         if (this.grapples.containsKey(player)) {
+            this.grapples.get(player).cancel();
             this.grapples.remove(player);
         }
     }
