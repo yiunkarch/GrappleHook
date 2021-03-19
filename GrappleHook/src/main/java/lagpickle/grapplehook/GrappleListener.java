@@ -38,11 +38,10 @@ public class GrappleListener implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         if (event.hasItem()) {
+            Player player = event.getPlayer();
             switch (event.getAction()) {
                 case LEFT_CLICK_AIR:
                 case LEFT_CLICK_BLOCK:
-                    Player player = event.getPlayer();
-                    GrappleManager gm = this.plugin.getGrappleManager();
                     // relaunch hook if hook is still flying
                     if (this.hooks.containsValue(player)) {
                         Projectile hook = this.hooks.entrySet().stream()
@@ -53,11 +52,12 @@ public class GrappleListener implements Listener {
                         this.removeHook(hook);
                     }
                     // toggle grapple state
-                    if (gm.isGrappled(player)) {
-                        gm.unGrapple(player);
-                    } else {
-                        launchHook(player);
-                    }
+                    launchHook(player);
+                    break;
+                case RIGHT_CLICK_AIR:
+                case RIGHT_CLICK_BLOCK:
+                    this.plugin.getGrappleManager().unGrapple(player);
+                    break;
             }
         }
     }
