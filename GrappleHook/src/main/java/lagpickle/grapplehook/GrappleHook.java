@@ -78,6 +78,9 @@ public class GrappleHook extends JavaPlugin {
     public double getMaxTetherLength2() {
         return this.maxTetherLength2;
     }
+    public double getTetherStretchiness() {
+        return getConfig().getDouble("tether-stretchiness");
+    }
     public Particle.DustOptions getParticleOptions() {
         return this.particleOptions;
     }

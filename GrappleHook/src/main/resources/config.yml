@@ -10,6 +10,9 @@ max-tether-length: 32
 # the minimum length a grapple tether can be
 min-tether-length: 4
 
+# how much the tether "stretches" while retracting
+tether-stretchiness: 1.1
+
 # particles used to display the tether
 particle-options:
     red: 0.8

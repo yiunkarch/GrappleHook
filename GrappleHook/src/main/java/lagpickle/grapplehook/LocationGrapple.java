@@ -35,11 +35,6 @@ public class LocationGrapple extends BukkitRunnable {
             this.plugin.getGrappleManager().unGrapple(this.player);
             return;
         }
-        // retract tether
-        if (this.length > this.plugin.getMinTetherLength()) {
-            this.length -= this.plugin.getRetractionSpeed();
-            this.length2 = this.length * this.length;
-        }
         // find distance to new player position
         double distance2;
         Location playerLoc = this.player.getLocation();
@@ -54,6 +49,14 @@ public class LocationGrapple extends BukkitRunnable {
         if (distance2 > this.plugin.getMaxTetherLength2()) {
             this.plugin.getGrappleManager().unGrapple(this.player);
             return;
+        }
+        // retract tether
+        if (this.length > this.plugin.getMinTetherLength()
+                && this.length2*this.plugin.getTetherStretchiness()
+                    >= playerLoc.distanceSquared(this.hookLoc)
+        ) {
+            this.length -= this.plugin.getRetractionSpeed();
+            this.length2 = this.length * this.length;
         }
         // if player is "pulling" on the grapple line
         if (distance2 > this.length2) {
