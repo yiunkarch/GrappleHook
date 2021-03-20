@@ -13,6 +13,9 @@ min-tether-length: 4
 # how much the tether "stretches" while retracting
 tether-stretchiness: 1.1
 
+# how much a tether can stretch beyond its length before it breaks
+tether-stretch-limit: 2
+
 # particles used to display the tether
 particle-options:
     red: 0.8
