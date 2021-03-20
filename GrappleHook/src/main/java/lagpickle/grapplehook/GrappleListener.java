@@ -38,7 +38,8 @@ public class GrappleListener implements Listener {
                             this.plugin.getMaxTetherLength());
                         if (ray != null) {
                             gm.grappleLocation(
-                                player,ray.getHitBlock().getLocation());
+                                player,ray.getHitPosition().toLocation(
+                                    player.getWorld()));
                         }
                     }
                     event.setCancelled(true);
