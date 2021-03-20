@@ -9,3 +9,11 @@ max-tether-length: 32
 
 # the minimum length a grapple tether can be
 min-tether-length: 4
+
+# particles used to display the tether
+particle-options:
+    red: 0.8
+    green: 0.8
+    blue: 0.8
+    size: 0.6
+    step: 0.4
