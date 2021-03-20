@@ -39,7 +39,7 @@ public class GrappleHook extends JavaPlugin {
 
         ConfigurationSection config = this.getConfig();
 
-        double maxTether = config.getDouble("max-tether-length");
+        double maxTether = this.getMaxTetherLength();
         this.maxTetherLength2 = maxTether * maxTether;
 
         try {
@@ -56,14 +56,14 @@ public class GrappleHook extends JavaPlugin {
             this.particleOptions = new Particle.DustOptions(Color.GRAY,1);
         }
     }
-    public int getHookTimeout() {
-        return this.getConfig().getInt("hook-timeout");
-    }
     public double getRetractionSpeed() {
         return getConfig().getDouble("retraction-speed");
     }
     public double getMinTetherLength() {
         return getConfig().getDouble("min-tether-length");
+    }
+    public double getMaxTetherLength() {
+        return getConfig().getDouble("max-tether-length");
     }
     public double getMaxTetherLength2() {
         return this.maxTetherLength2;

@@ -1,6 +1,3 @@
-# number of ticks before a flying grapple hook despawns
-hook-timeout: 10
-
 # the rate at which the grappling tether is retracted
 retraction-speed: 0.4
 
