@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.RayTraceResult;
 
 public class GrappleListener implements Listener {
@@ -18,7 +19,12 @@ public class GrappleListener implements Listener {
 
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
-        if (event.hasItem()) {
+        if (event.hasItem()
+                && event.getItem().getItemMeta()
+                    .getPersistentDataContainer().has(
+                        this.plugin.getItemKey(),
+                        PersistentDataType.BYTE)
+        ) {
             Player player = event.getPlayer();
             GrappleManager gm = this.plugin.getGrappleManager();
             switch (event.getAction()) {
@@ -35,6 +41,7 @@ public class GrappleListener implements Listener {
                                 player,ray.getHitBlock().getLocation());
                         }
                     }
+                    event.setCancelled(true);
             }
         }
     }

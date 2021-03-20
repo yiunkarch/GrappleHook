@@ -1,6 +1,7 @@
 package lagpickle.grapplehook;
 
 import org.bukkit.Color;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,19 +10,25 @@ public class GrappleHook extends JavaPlugin {
 
     private GrappleManager grappleManager;
     private GrappleListener grappleListener;
-    private GrappleHookCommand grappleHookCommand;
+    private CommandReload commandReload;
+    private CommandGrappleGive commandGive;
+
+    private final NamespacedKey itemKey;
 
     public GrappleHook() {
         this.grappleManager = new GrappleManager(this);
         this.grappleListener = new GrappleListener(this);
-        this.grappleHookCommand = new GrappleHookCommand(this);
+        this.commandReload = new CommandReload(this);
+        this.commandGive = new CommandGrappleGive(this);
+        this.itemKey = new NamespacedKey(this,"GrappleHook");
     }
 
     @Override
     public void onEnable() {
         this.readConfig();
         getServer().getPluginManager().registerEvents(this.grappleListener,this);
-        getCommand("grapplehook-reload").setExecutor(this.grappleHookCommand);
+        getCommand("grapplehook-reload").setExecutor(this.commandReload);
+        getCommand("grapplehook-give").setExecutor(this.commandGive);
     }
 
     public GrappleManager getGrappleManager() {
@@ -76,5 +83,9 @@ public class GrappleHook extends JavaPlugin {
     }
     public double getParticleStep() {
         return this.getConfig().getDouble("particle-options.step");
+    }
+
+    public NamespacedKey getItemKey() {
+        return this.itemKey;
     }
 }

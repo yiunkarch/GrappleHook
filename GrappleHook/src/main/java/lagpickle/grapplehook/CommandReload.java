@@ -4,11 +4,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class GrappleHookCommand implements CommandExecutor {
+public class CommandReload implements CommandExecutor {
 
     private GrappleHook plugin;
 
-    public GrappleHookCommand(GrappleHook plugin) {
+    public CommandReload(GrappleHook plugin) {
         this.plugin = plugin;
     }
 

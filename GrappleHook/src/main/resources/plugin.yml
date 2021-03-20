@@ -6,6 +6,12 @@ commands:
     grapplehook-reload:
         description: reload plugin config
         permission: grapplehook.reload
+    grapplehook-give:
+        description: turns item in main hand into a grapple
+        permission: grapplehook.give
+        usage: /<command> [<player>]
 permissions:
     grapplehook.reload:
+        default: op
+    grapplehook.give:
         default: op
