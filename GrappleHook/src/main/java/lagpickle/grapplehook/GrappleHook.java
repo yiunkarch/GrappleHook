@@ -56,6 +56,9 @@ public class GrappleHook extends JavaPlugin {
             this.particleOptions = new Particle.DustOptions(Color.GRAY,1);
         }
     }
+    public int getUngrappleDelay() {
+        return getConfig().getInt("ungrapple-delay");
+    }
     public double getRetractionSpeed() {
         return getConfig().getDouble("retraction-speed");
     }

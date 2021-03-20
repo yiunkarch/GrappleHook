@@ -19,20 +19,21 @@ public class GrappleListener implements Listener {
     public void onClick(PlayerInteractEvent event) {
         if (event.hasItem()) {
             Player player = event.getPlayer();
+            GrappleManager gm = this.plugin.getGrappleManager();
             switch (event.getAction()) {
-                case LEFT_CLICK_AIR:
-                case LEFT_CLICK_BLOCK:
-                    RayTraceResult ray = player.rayTraceBlocks(
-                        this.plugin.getMaxTetherLength());
-                    if (ray != null) {
-                        this.plugin.getGrappleManager().grappleLocation(
-                            player,ray.getHitBlock().getLocation());
-                    }
-                    break;
                 case RIGHT_CLICK_AIR:
                 case RIGHT_CLICK_BLOCK:
-                    this.plugin.getGrappleManager().unGrapple(player);
-                    break;
+                    // renew grapple duration or launch new grapple
+                    if (gm.isGrappled(player)) {
+                        gm.renewGrapple(player);
+                    } else {
+                        RayTraceResult ray = player.rayTraceBlocks(
+                            this.plugin.getMaxTetherLength());
+                        if (ray != null) {
+                            gm.grappleLocation(
+                                player,ray.getHitBlock().getLocation());
+                        }
+                    }
             }
         }
     }

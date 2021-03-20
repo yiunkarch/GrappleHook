@@ -13,6 +13,7 @@ public class LocationGrapple extends BukkitRunnable {
     private Location hookLoc;
     private double length;
     private double length2;
+    private int grappleTicks;
 
     public LocationGrapple(GrappleHook plugin,Player player,Location hookLoc) {
         this.plugin = plugin;
@@ -20,10 +21,20 @@ public class LocationGrapple extends BukkitRunnable {
         this.hookLoc = hookLoc;
         this.length = player.getLocation().distance(hookLoc);
         this.length2 = this.length * this.length;
+        this.grappleTicks = 0;
+    }
+
+    public void setGrappleTicks(int ticks) {
+        this.grappleTicks = ticks;
     }
 
     @Override
     public void run() {
+        // ungrapple after delay
+        if (--this.grappleTicks < 0) {
+            this.plugin.getGrappleManager().unGrapple(this.player);
+            return;
+        }
         // retract tether
         if (this.length > this.plugin.getMinTetherLength()) {
             this.length -= this.plugin.getRetractionSpeed();
